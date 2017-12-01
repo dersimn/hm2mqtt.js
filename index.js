@@ -635,9 +635,9 @@ process.on('SIGTERM', stop);
 function initIface(name, protocol) {
     let url;
     if (protocol === 'binrpc') {
-        url = 'xmlrpc_bin://' + (config.initAddress || config.listenAddress) + ':' + config.binrpcListenPort;
+        url = 'xmlrpc_bin://' + (config.initAddress) + ':' + config.binrpcListenPort;
     } else {
-        url = 'http://' + (config.initAddress || config.listenAddress) + ':' + config.listenPort;
+        url = 'http://' + (config.initAddress) + ':' + config.listenPort;
     }
     const params = [url, 'hm2mqtt_' + name];
     log.info('rpc', name, '> init', params);
