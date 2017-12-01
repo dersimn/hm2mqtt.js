@@ -312,13 +312,6 @@ function rpcType(payload, paramset) {
              */
             val = String(val);
             break;
-        case 'ENUM':
-            if (typeof val === 'string') {
-                if (paramset.ENUM && (paramset.ENUM.indexOf(val) !== -1)) {
-                    val = paramset.ENUM.indexOf(val);
-                }
-            }
-        // eslint-disable-line no-fallthrough
         case 'INTEGER':
             val = parseInt(val, 10);
             if (val < paramset.MIN) {
