@@ -360,12 +360,23 @@ function rpcSet(name, paramset, datapoint, payload) {
 
     const val = rpcType(payload, ps);
 
-    log.debug('rpc', iface, '> setValue', [address, datapoint, val]);
-    rpcClient[iface].methodCall('setValue', [address, datapoint, val], err => {
-        if (err) {
-            log.error(err);
-        }
-    });
+    if ( paramset == "VALUES" ) {
+        log.debug('rpc', iface, '> setValue', [address, datapoint, val]);
+        rpcClient[iface].methodCall('setValue', [address, datapoint, val], err => {
+            if (err) {
+                log.error(err);
+            }
+        });
+    } else {
+        const set = {};
+        set[datapoint] = val;
+        log.debug('rpc', iface, '> putParamset', [address, paramset, set]);
+        rpcClient[iface].methodCall('putParamset', [address, paramset, set], err => {
+            if (err) {
+                log.error(err);
+            }
+        });
+    }
 }
 
 function rega(script, callback) {
