@@ -129,12 +129,14 @@ mqtt.on('message', (topic, payload) => {
     const parts = topic.split('/');
     if (parts.length >= 4 && parts[1] === 'set') {
         // Topic <name>/set/<channel>/<datapoint>
-        const channel = parts.slice(2, parts.length - 1).join('/');
+        var channel = parts.slice(2, parts.length - 1).join('/');
+        if ( config.replaceColons ) channel = channel.replace("_",":");
         const datapoint = parts[parts.length - 1];
         rpcSet(channel, 'VALUES', datapoint, payload);
     } else if (parts.length >= 5 && parts[1] === 'paramset') {
         // Topic <name>/paramset/<channel>/<paramset>/<datapoint>
-        const channel = parts.slice(2, parts.length - 2).join('/');
+        var channel = parts.slice(2, parts.length - 2).join('/');
+        if ( config.replaceColons ) channel = channel.replace("_",":");
         const paramset = parts[parts.length - 2];
         const datapoint = parts[parts.length - 1];
         rpcSet(channel, paramset, datapoint, payload);
@@ -845,7 +847,9 @@ const rpcMethods = {
             ps = {};
         }
 
-        const topic = config.name + '/status/' + (names[params[1]] || params[1]) + '/' + params[2];
+        var channel = (names[params[1]] || params[1]);
+        if ( config.replaceColons ) channel = channel.replace(":","_");
+        const topic = config.name + '/status/' + channel + '/' + params[2];
 
         let payload = {val: params[3], ts, lc: changes[key], hm: {ADDRESS: params[1]}};
         if (ps.UNIT && ps.UNIT !== '""') {

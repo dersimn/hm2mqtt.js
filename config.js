@@ -18,6 +18,7 @@ module.exports = require('yargs')
     .describe('help', 'show help')
     .describe('publish-metadata', '')
     .describe('mqtt-retain', 'enable/disable retain flag for mqtt messages')
+    .describe('replace-colons', 'Replace colons (:) in topic name with underscores (_). Useful for OpenHAB compatibility.').boolean('replace-colons')
     .alias({
         a: 'ccu-address',
         b: 'binrpc-listen-port',
