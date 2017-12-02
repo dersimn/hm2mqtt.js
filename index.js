@@ -297,11 +297,6 @@ function rpcType(payload, paramset) {
             break;
         case 'FLOAT':
             val = parseFloat(val);
-            if (val < paramset.MIN) {
-                val = paramset.MIN;
-            } else if (val > paramset.MAX) {
-                val = paramset.MAX;
-            }
             /* JavaScript doesn't seperate integer and float/double types, so in JavaScript there's only "Number".
              * However, the XML-RPC library needs to determine whether to wrap the value in <i4>22</i$> or <double>22</double>,
              * see [list of allowed datatypes](https://ws.apache.org/xmlrpc/types.html).
@@ -316,11 +311,6 @@ function rpcType(payload, paramset) {
             break;
         case 'INTEGER':
             val = parseInt(val, 10);
-            if (val < paramset.MIN) {
-                val = paramset.MIN;
-            } else if (val > paramset.MAX) {
-                val = paramset.MAX;
-            }
             break;
         case 'STRING':
             val = String(val);
