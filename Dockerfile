@@ -1,10 +1,8 @@
 FROM node:slim
-LABEL maintainer="Holger Imbery <contact@connectedobjects.cloud>" \
-      version="1.1a" \
-      description="HM2MQTT (hm2mqtt.js) dockerized version of https://github.com/hobbyquaker/hm2mqtt.js"
 
-RUN npm config set unsafe-perm true && npm install -g hm2mqtt
+COPY . /node
 
-EXPOSE 2126
-EXPOSE 2127
-ENTRYPOINT ["hm2mqtt"]
+RUN cd /node && \
+	npm install
+
+ENTRYPOINT [ "node", "/node/index.js" ]
