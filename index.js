@@ -850,7 +850,8 @@ const rpcMethods = {
             }
         }
         if (ps.TYPE === 'ENUM') {
-            payload.hm.ENUM = ps.VALUE_LIST[params[3]];
+            payload.val = ps.VALUE_LIST[params[3]];
+            payload.hm.VALUE_LIST = ps.VALUE_LIST;
         }
         payload = JSON.stringify(payload);
 
