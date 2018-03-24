@@ -307,10 +307,12 @@ function rpcType(payload, paramset) {
             break;
         case 'FLOAT':
             val = parseFloat(val);
-            if (val < paramset.MIN) {
-                val = paramset.MIN;
-            } else if (val > paramset.MAX) {
-                val = paramset.MAX;
+            if ( !config.protocolDisableValueChecking ) {
+                if (val < paramset.MIN) {
+                    val = paramset.MIN;
+                } else if (val > paramset.MAX) {
+                    val = paramset.MAX;
+                }
             }
             if ( config.protocolPreferStrings ) {
                 /* JavaScript doesn't seperate integer and float/double types, so in JavaScript there's only "Number".
@@ -339,10 +341,12 @@ function rpcType(payload, paramset) {
         // eslint-disable-line no-fallthrough
         case 'INTEGER':
             val = parseInt(val, 10);
-            if (val < paramset.MIN) {
-                val = paramset.MIN;
-            } else if (val > paramset.MAX) {
-                val = paramset.MAX;
+            if ( !config.protocolDisableValueChecking ) {
+                if (val < paramset.MIN) {
+                    val = paramset.MIN;
+                } else if (val > paramset.MAX) {
+                    val = paramset.MAX;
+                }
             }
             break;
         case 'STRING':

@@ -19,6 +19,7 @@ module.exports = require('yargs')
     .describe('mqtt-retain', 'enable/disable retain flag for mqtt messages')
     .describe('protocol-replace-colons', 'Replace colons (:) in topic name with underscores (_). Useful for OpenHAB compatibility.').boolean('protocol-replace-colons')
     .describe('protocol-prefer-strings', 'Disables the use of explicitDouble converstion and transmitts float values as string. Might put more load on the CCU.').boolean('protocol-prefer-strings')
+    .describe('protocol-disable-value-checking', 'Disables the checking for unallowed values for e.g. in ENUM datapoints or the range of integer values. If set to true (disabled), all values will be sent to the CCU, the CCU then handles filtering/throwing error messages etc.').boolean('protocol-disable-value-checking')
     .describe('insecure', 'allow tls connections with invalid certificates')
     .boolean('insecure')
     .alias({
