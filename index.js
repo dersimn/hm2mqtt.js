@@ -958,7 +958,11 @@ const rpcMethods = {
             }
         }
         if (ps.TYPE === 'ENUM') {
-            payload.hm.ENUM = ps.VALUE_LIST[params[3]];
+            if ( config.protocolPublishEnumAsString ) {
+                payload.val = ps.VALUE_LIST[params[3]];
+            } else {
+                payload.hm.ENUM = ps.VALUE_LIST[params[3]];
+            }
         }
         payload = JSON.stringify(payload);
 
