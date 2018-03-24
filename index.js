@@ -647,7 +647,7 @@ function getPrograms(cb) {
 log.debug('discover interfaces');
 discover(config.ccuAddress, {
     // Todo... cuxd: {port: 8701, protocol: 'binrpc'},
-    rfd: {port: 2001, protocol: 'binrpc'},
+    rfd: {port: 2001, protocol: (config.protocolPreferXmlrpcForRfd ? 'xmlrpc' : 'binrpc') },
     hs485d: {port: 2000, protocol: 'binrpc'},
     hmip: {port: 2010, protocol: 'xmlrpc'}
 }, interfaces => {

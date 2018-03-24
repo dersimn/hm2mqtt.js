@@ -22,6 +22,7 @@ module.exports = require('yargs')
     .describe('protocol-disable-value-checking', 'Disables the checking for unallowed values for e.g. in ENUM datapoints or the range of integer values. If set to true (disabled), all values will be sent to the CCU, the CCU then handles filtering/throwing error messages etc.').boolean('protocol-disable-value-checking')
     .describe('protocol-publish-enum-as-string', 'Publishes ENUM datapoints with verbal string value instead of index, for e.g. thermostats "val":"MANU-MODE" instead of "val":1 (1 is the index of MANU-MODE in ENUM).').boolean('protocol-publish-enum-as-string')
     .describe('protocol-publish-enum-list', 'Publishes complete VALUE_LIST for ENUM datapoints with every message. Might cause more load on MQTT broker.').boolean('protocol-publish-enum-list')
+    .describe('protocol-prefer-xmlrpc-for-rfd', 'Prefer xmlrpc instead of binrpc for rfd communications').boolean('protocol-prefer-xmlrpc-for-rfd')
     .describe('insecure', 'allow tls connections with invalid certificates')
     .boolean('insecure')
     .alias({
