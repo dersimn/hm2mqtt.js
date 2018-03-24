@@ -17,6 +17,7 @@ module.exports = require('yargs')
     .describe('help', 'show help')
     .describe('publish-metadata', '')
     .describe('mqtt-retain', 'enable/disable retain flag for mqtt messages')
+    .describe('replace-colons', 'Replace colons (:) in topic name with underscores (_). Useful for OpenHAB compatibility.').boolean('replace-colons')
     .describe('insecure', 'allow tls connections with invalid certificates')
     .boolean('insecure')
     .alias({
@@ -40,7 +41,8 @@ module.exports = require('yargs')
         'mqtt-url': 'mqtt://127.0.0.1',
         name: 'hm',
         verbosity: 'info',
-        'listen-address': require('./firstip.js'),
+        'listen-address': '0.0.0.0',
+        'init-address': require('./firstip.js'),
         'listen-port': 2126,
         'binrpc-listen-port': 2127,
         'ping-interval': 30,
