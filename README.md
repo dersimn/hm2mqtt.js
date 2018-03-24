@@ -80,7 +80,7 @@ hm2mqtt sends virtual datapoints named `LEVEL_NOTWORKING` respectively `STATE_NO
 is useful for e.g. sliders in a UI to prevent jumping sliders when a Blind or Keymatic is moving or a Dimmer is dimming.
 
 
-## docker image for hm2mqtt.js
+## Docker
 
 #### Usage (architecture: amd64)
 - pull the image to your machine, or if you are on a swarm to each node
@@ -113,6 +113,27 @@ docker pull mqttsmarthome/hm2mqtt:armhf
 ```
 - follow the description above (architecture: amd64), but leave out the pull sequence mentioned there.
 
+### Developing with Docker
+
+	git clone <this repository> hm2mqtt
+	cd hm2mqtt
+
+#### Build for x86
+
+	docker build -t hm2mqtt-dev .
+
+#### Build for armhf (Raspberry Pi)
+
+	docker build -t hm2mqtt-dev-armhf -f Dockerfile.armhf .
+
+You can also do a build for armhf with »Docker for Mac« or »Docker for Windows« even if you are on a x86 architecture. In this case you can copy over the built image via
+
+	docker save hm2mqtt-dev-armhf | gzip > hm2mqtt-dev-armhf.tar.gz
+	gunzip -c hm2mqtt-dev-armhf.tar.gz | docker load
+
+or directly via `ssh`:
+
+	docker save hm2mqtt-dev-armhf | gzip | pv | ssh root@hma-pi.lan 'gunzip | docker load'
 
 ## License
 
