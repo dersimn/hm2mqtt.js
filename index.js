@@ -312,13 +312,29 @@ function rpcType(payload, paramset) {
             } else if (val > paramset.MAX) {
                 val = paramset.MAX;
             }
-            val = {explicitDouble: val};
+            if ( config.protocolPreferStrings ) {
+                /* JavaScript doesn't seperate integer and float/double types, so in JavaScript there's only "Number".
+                 * However, the XML-RPC library needs to determine whether to wrap the value in <i4>22</i$> or <double>22</double>,
+                 * see [list of allowed datatypes](https://ws.apache.org/xmlrpc/types.html).
+                 *
+                 * node-xmlrpc does this with an `if ( value % 1 == 0)`, see [serializer.js:188](https://github.com/baalexander/node-xmlrpc/blob/d9c88c4185e16637ed5a22c1b91c80e958e8d69e/lib/serializer.js#L188)
+                 * 
+                 * homematic-xmlrpc introduced an object like `{explicitDouble: val}`.
+                 * 
+                 * The CCU2 seems to accept <string>22</string> messages and does a string to int/float conversion itself - currently in testing.
+                 */
+                val = String(val);
+            } else {
+                val = {explicitDouble: val};
+            }
             break;
         case 'ENUM':
-            if (typeof val === 'string') {
+            if (typeof val === 'string' && !config.protocolPreferStrings ) {
                 if (paramset.ENUM && (paramset.ENUM.indexOf(val) !== -1)) {
                     val = paramset.ENUM.indexOf(val);
                 }
+            } else {
+                // When message is already an integer, check if it's an allowed index
             }
         // eslint-disable-line no-fallthrough
         case 'INTEGER':

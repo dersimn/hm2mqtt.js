@@ -18,6 +18,7 @@ module.exports = require('yargs')
     .describe('publish-metadata', '')
     .describe('mqtt-retain', 'enable/disable retain flag for mqtt messages')
     .describe('protocol-replace-colons', 'Replace colons (:) in topic name with underscores (_). Useful for OpenHAB compatibility.').boolean('protocol-replace-colons')
+    .describe('protocol-prefer-strings', 'Disables the use of explicitDouble converstion and transmitts float values as string. Might put more load on the CCU.').boolean('protocol-prefer-strings')
     .describe('insecure', 'allow tls connections with invalid certificates')
     .boolean('insecure')
     .alias({
