@@ -963,6 +963,9 @@ const rpcMethods = {
             } else {
                 payload.hm.ENUM = ps.VALUE_LIST[params[3]];
             }
+            if ( config.protocolPublishEnumList ) {
+                payload.hm.VALUE_LIST = ps.VALUE_LIST;
+            }
         }
         payload = JSON.stringify(payload);
 
