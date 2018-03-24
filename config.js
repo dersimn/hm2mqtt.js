@@ -17,7 +17,7 @@ module.exports = require('yargs')
     .describe('help', 'show help')
     .describe('publish-metadata', '')
     .describe('mqtt-retain', 'enable/disable retain flag for mqtt messages')
-    .describe('replace-colons', 'Replace colons (:) in topic name with underscores (_). Useful for OpenHAB compatibility.').boolean('replace-colons')
+    .describe('protocol-replace-colons', 'Replace colons (:) in topic name with underscores (_). Useful for OpenHAB compatibility.').boolean('protocol-replace-colons')
     .describe('insecure', 'allow tls connections with invalid certificates')
     .boolean('insecure')
     .alias({

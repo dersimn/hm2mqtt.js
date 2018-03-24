@@ -134,20 +134,20 @@ mqtt.on('message', (topic, payload) => {
     if (parts.length >= 4 && parts[1] === 'set') {
         // Topic <name>/set/<channel>/<datapoint>
         var channel = parts.slice(2, parts.length - 1).join('/');
-        if ( config.replaceColons ) channel = channel.replace("_",":");
+        if ( config.protocolReplaceColons ) channel = channel.replace("_",":");
         const datapoint = parts[parts.length - 1];
         rpcSet(channel, 'VALUES', datapoint, payload);
     } else if (parts.length >= 5 && parts[1] === 'param') {
         // Topic <name>/param/<channel>/<paramset>/<datapoint>
         var channel = parts.slice(2, parts.length - 2).join('/');
-        if ( config.replaceColons ) channel = channel.replace("_",":");
+        if ( config.protocolReplaceColons ) channel = channel.replace("_",":");
         const paramset = parts[parts.length - 2];
         const datapoint = parts[parts.length - 1];
         rpcPutParam(channel, paramset, datapoint, payload);
     } else if (parts.length >= 4 && parts[1] === 'paramset') {
         // Topic <name>/paramset/<channel>/<paramset>
         var channel = parts.slice(2, parts.length - 1).join('/');
-        if ( config.replaceColons ) channel = channel.replace("_",":");
+        if ( config.protocolReplaceColons ) channel = channel.replace("_",":");
         const paramset = parts[parts.length - 1];
         rpcPutParamset(channel, paramset, payload);
     } else if (parts.length === 5 && parts[1] === 'rpc') {
@@ -926,7 +926,7 @@ const rpcMethods = {
         ps = (ps && ps.VALUES && ps.VALUES[params[2]]) || {};
 
         var channel = (names[params[1]] || params[1]);
-        if ( config.replaceColons ) channel = channel.replace(":","_");
+        if ( config.protocolReplaceColons ) channel = channel.replace(":","_");
         const topic = config.name + '/status/' + channel + '/' + params[2];
 
         let payload = {val: params[3], ts, lc: changes[key], hm: {ADDRESS: params[1]}};
