@@ -967,7 +967,11 @@ const rpcMethods = {
                 payload.hm.VALUE_LIST = ps.VALUE_LIST;
             }
         }
-        payload = JSON.stringify(payload);
+        if (config.protocolPublishValDistinct) {
+            payload = String(payload.val);
+        } else {
+            payload = JSON.stringify(payload);
+        }
 
         const retain = (config.mqttRetain) && (ps.TYPE !== 'ACTION');
 

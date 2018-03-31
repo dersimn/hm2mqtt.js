@@ -23,6 +23,7 @@ module.exports = require('yargs')
     .describe('protocol-publish-enum-as-string', 'Publishes ENUM datapoints with verbal string value instead of index, for e.g. thermostats "val":"MANU-MODE" instead of "val":1 (1 is the index of MANU-MODE in ENUM).').boolean('protocol-publish-enum-as-string')
     .describe('protocol-publish-enum-list', 'Publishes complete VALUE_LIST for ENUM datapoints with every message. Might cause more load on MQTT broker.').boolean('protocol-publish-enum-list')
     .describe('protocol-prefer-xmlrpc-for-rfd', 'Prefer xmlrpc instead of binrpc for rfd communications').boolean('protocol-prefer-xmlrpc-for-rfd')
+    .describe('protocol-publish-val-distinct', 'Publish just the value, no JSON object').boolean('protocol-publish-val-distinct')
     .describe('insecure', 'allow tls connections with invalid certificates')
     .boolean('insecure')
     .alias({
