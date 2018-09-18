@@ -16,6 +16,7 @@ module.exports = require('yargs')
     .describe('init-address', 'Address used in the RPC init. Normally there is no need to set this')
     .describe('help', 'show help')
     .describe('publish-metadata', '')
+    .describe('publish-counters', '')
     .describe('mqtt-retain', 'enable/disable retain flag for mqtt messages')
     .describe('protocol-replace-colons', 'Replace colons (:) in topic name with underscores (_). Useful for OpenHAB compatibility.').boolean('protocol-replace-colons')
     .describe('protocol-prefer-strings', 'Disables the use of explicitDouble converstion and transmitts float values as string. Might put more load on the CCU.').boolean('protocol-prefer-strings')
@@ -42,6 +43,8 @@ module.exports = require('yargs')
         v: 'verbosity'
     })
     .boolean('mqtt-retain')
+    .boolean('publish-counters')
+    .boolean('publish-metadata')
     .default({
         'disable-rega': false,
         'mqtt-url': 'mqtt://127.0.0.1',
@@ -57,6 +60,7 @@ module.exports = require('yargs')
         'rega-poll-interval': 0,
         'rega-poll-trigger': '',
         'publish-metadata': false,
+        'publish-counters': false,
         'mqtt-retain': true
     })
     .demandOption([

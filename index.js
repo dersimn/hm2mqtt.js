@@ -396,6 +396,8 @@ function rpcPutParam(name, paramsetKey, datapoint, payload) {
     rpcClient[iface].methodCall('putParamset', [address, paramsetKey, paramset], err => {
         if (err) {
             log.error(err);
+        } else {
+            publishCounter(iface + '/rpc/tx');
         }
     });
 }
@@ -438,6 +440,8 @@ function rpcPutParamset(name, paramsetKey, payload) {
     rpcClient[iface].methodCall('putParamset', [address, paramsetKey, paramset], err => {
         if (err) {
             log.error(err);
+        } else {
+            publishCounter(iface + '/rpc/tx');
         }
     });
 }
@@ -467,6 +471,8 @@ function rpcSet(name, paramset, datapoint, payload) {
     rpcClient[iface].methodCall('setValue', [address, datapoint, val], err => {
         if (err) {
             log.error(err);
+        } else {
+            publishCounter(iface + '/rpc/tx');
         }
     });
 }
@@ -910,6 +916,8 @@ const rpcMethods = {
             return;
         }
 
+        publishCounter(ifaceName(params[0]) + '/rpc/rx');
+
         if (params[2] === 'WORKING' || params[2] === 'DIRECTION') {
             working[params[1]] = Boolean(params[3]);
         }
@@ -1117,4 +1125,13 @@ function pollDutyCylce(iface) {
             });
         }
     });
+}
+
+const counters = {};
+function publishCounter(topic) {
+    if (!config.publishCounters) {
+        return;
+    }
+    counters[topic] = counters[topic] ? (counters[topic] + 1) : 1;
+    mqttPublish(config.name + '/status/counter/' + topic, String(counters[topic]));
 }
